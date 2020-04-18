@@ -1,3 +1,10 @@
+/*
+    based off https://zipcpu.com/zipcpu/2017/05/29/simple-wishbone.html
+
+    copyright Matt Venn 2020
+
+    licensed under the GPL
+*/
 `default_nettype none
 
 module wb_buttons_leds #(
