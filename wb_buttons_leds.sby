@@ -1,0 +1,13 @@
+[options]
+mode cover
+
+[engines]
+smtbmc yices
+
+[script]
+read -verific
+read -formal wb_buttons_leds.v
+prep -top wb_buttons_leds
+
+[files]
+wb_buttons_leds.v
