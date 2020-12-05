@@ -8,7 +8,9 @@
 `default_nettype none
 
 module wb_buttons_leds #(
-    parameter   [31:0]  address = 32'h00000001        // single address
+    parameter   [31:0]  BASE_ADDRESS    = 32'h03000000,        // base address
+    parameter   [31:0]  LED_ADDRESS     = BASE_ADDRESS,
+    parameter   [31:0]  BUTTON_ADDRESS  = BASE_ADDRESS + 4
     ) (
     input wire          clk,
     input wire          reset,
@@ -36,17 +38,22 @@ module wb_buttons_leds #(
     always @(posedge clk) begin
         if(reset)
             leds <= 8'b0;
-        else if(i_wb_stb && i_wb_cyc && i_wb_we && !o_wb_stall && i_wb_addr == address) begin
+        else if(i_wb_stb && i_wb_cyc && i_wb_we && !o_wb_stall && i_wb_addr == LED_ADDRESS) begin
             leds <= i_wb_data[7:0];
         end
     end
 
     // reads
     always @(posedge clk) begin
-        if(i_wb_stb && i_wb_cyc && !i_wb_we && !o_wb_stall && i_wb_addr == address) begin
-            o_wb_data <= {29'b0, buttons};
-        end else
-            o_wb_data <= 32'b0;
+        if(i_wb_stb && i_wb_cyc && !i_wb_we && !o_wb_stall)
+            case(i_wb_addr)
+                LED_ADDRESS: 
+                    o_wb_data <= {24'b0, leds};
+                BUTTON_ADDRESS: 
+                    o_wb_data <= {29'b0, buttons};
+                default:
+                    o_wb_data <= 32'b0;
+            endcase
     end
 
     // acks
@@ -55,7 +62,7 @@ module wb_buttons_leds #(
             o_wb_ack <= 0;
         else
             // return ack immediately
-            o_wb_ack <= (i_wb_stb && !o_wb_stall && i_wb_addr == address);
+            o_wb_ack <= (i_wb_stb && !o_wb_stall && (i_wb_addr == LED_ADDRESS || i_wb_addr == BUTTON_ADDRESS));
     end
 
 `ifdef FORMAL
