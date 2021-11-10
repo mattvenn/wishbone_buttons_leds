@@ -13,14 +13,8 @@ module wb_buttons_leds #(
     parameter   [31:0]  BUTTON_ADDRESS  = BASE_ADDRESS + 4
     ) (
 `ifdef USE_POWER_PINS
-    inout vdda1,	// User area 1 3.3V supply
-    inout vdda2,	// User area 2 3.3V supply
-    inout vssa1,	// User area 1 analog ground
-    inout vssa2,	// User area 2 analog ground
     inout vccd1,	// User area 1 1.8V supply
-    inout vccd2,	// User area 2 1.8v supply
     inout vssd1,	// User area 1 digital ground
-    inout vssd2,	// User area 2 digital ground
 `endif
     input wire          clk,
     input wire          reset,
@@ -37,14 +31,11 @@ module wb_buttons_leds #(
 
     // buttons
     input wire  [2:0]   buttons,
-    output wire [7:0]   led_enb,        // not enable - low for active
     output reg  [7:0]   leds
 
     );
 
     assign o_wb_stall = 0;
-
-    assign led_enb = 8'b0; // always enabled
 
     initial leds = 8'b0;
 
