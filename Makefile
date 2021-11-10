@@ -12,6 +12,9 @@ test_wishbone:
 	MODULE=test_wb vvp -M $$(cocotb-config --prefix)/cocotb/libs -m libcocotbvpi_icarus sim_build/sim.vvp
 	! grep failure results.xml
 
+show:
+	gtkwave wb_buttons_leds.vcd wb_buttons_leds.gtkw
+
 clean:
 	rm -rf *vcd sim_build __pycache__ results.xml
 

@@ -73,12 +73,13 @@ module wb_buttons_leds #(
             o_wb_ack <= (i_wb_stb && !o_wb_stall && (i_wb_addr == LED_ADDRESS || i_wb_addr == BUTTON_ADDRESS));
     end
 
+    // this is just some covers to produce waveforms
 `ifdef FORMAL
 	default clocking @(posedge clk); endclocking
 	default disable iff (reset);
 
     cyc:    assume property (i_wb_cyc |=> i_wb_cyc && o_wb_ack);
-	write:  cover property (##1 $rose(i_wb_stb) |-> ##[+] o_wb_data[3:0] == 4'b1010);
+    write:  cover property (##1 $rose(i_wb_stb) |-> ##[+] o_wb_data[3:0] == 4'b1010);
     read:   cover property (##1 $rose(i_wb_stb) |-> ##[+] leds[7:0] == 8'b11110000);
 `endif
 endmodule
