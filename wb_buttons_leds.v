@@ -6,6 +6,7 @@
     licensed under the GPL
 */
 `default_nettype none
+`timescale 1ns/1ns
 
 module wb_buttons_leds #(
     parameter   [31:0]  BASE_ADDRESS    = 32'h3000_0000,        // base address
@@ -50,7 +51,9 @@ module wb_buttons_leds #(
 
     // reads
     always @(posedge clk) begin
-        if(i_wb_stb && i_wb_cyc && !i_wb_we && !o_wb_stall)
+        if(reset)
+            o_wb_data <= 0;
+        else if(i_wb_stb && i_wb_cyc && !i_wb_we && !o_wb_stall)
             case(i_wb_addr)
                 LED_ADDRESS: 
                     o_wb_data <= {24'b0, leds};

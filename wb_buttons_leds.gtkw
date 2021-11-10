@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.105 (w)1999-2020 BSI
-[*] Sat Apr 18 15:09:36 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Nov 10 21:17:24 2021
 [*]
-[dumpfile] "/home/matt/work/fpga/wishbone-buttons-leds/wb_buttons_leds/engine_0/trace0.vcd"
-[dumpfile_mtime] "Sat Apr 18 15:08:16 2020"
-[dumpfile_size] 1043
-[savefile] "/home/matt/work/fpga/wishbone-buttons-leds/wb_buttons_leds.gtkw"
+[dumpfile] "/home/matt/work/asic-workshop/course/wishbone_buttons_leds/wb_buttons_leds.vcd"
+[dumpfile_mtime] "Wed Nov 10 21:16:47 2021"
+[dumpfile_size] 1440
+[savefile] "/home/matt/work/asic-workshop/course/wishbone_buttons_leds/wb_buttons_leds.gtkw"
 [timestart] 0
-[size] 1867 1018
-[pos] -29 -29
-*-2.776430 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1848 1016
+[pos] -1 -1
+*-15.776430 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [sst_width] 257
 [signals_width] 255
 [sst_expanded] 1
@@ -37,7 +37,6 @@ wb_buttons_leds.o_wb_stall
 @200
 -
 @22
-wb_buttons_leds.buttons[3:0]
 wb_buttons_leds.leds[7:0]
 [pattern_trace] 1
 [pattern_trace] 0
