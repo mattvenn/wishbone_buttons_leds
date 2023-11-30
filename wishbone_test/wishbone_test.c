@@ -26,7 +26,7 @@ void delay(const int d)
     reg_timer0_config = 1;
 
     // Loop, waiting for value to reach zero
-    reg_timer0_update = 1;  // latch current value
+    reg_timer0_update = 1;
     while (reg_timer0_value > 0) 
     {
         reg_timer0_update = 1;
@@ -37,7 +37,8 @@ void main(){
     // Enable managment gpio as output to use as indicator for finishing configuration  
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
-    enableHkSpi(0); // disable housekeeping spi
+    // disable housekeeping spi
+    enableHkSpi(0);
     
     int pin = 0;
     // buttons on 15:08
@@ -52,19 +53,21 @@ void main(){
     for(pin = 24; pin < 32; pin ++)
        GPIOs_configure(pin,GPIO_MODE_MGMT_STD_OUTPUT);
     
-    GPIOs_loadConfigs(); // load the configuration 
-    User_enableIF(); // turn on wishbone interface
-    ManagmentGpio_write(1); // configuration finished 
+    // load the configuration 
+    GPIOs_loadConfigs(); 
+    // turn on wishbone interface
+    User_enableIF();
+    // signal to cocotb that configuration is done
+    ManagmentGpio_write(1);
 
-    // https://caravel-sim-infrastructure.readthedocs.io/en/latest/C_api.html#_CPPv414USER_writeWordji
     while(1)
     {
         // read buttons. 0x1 is 4 byte offset, so reads from 0x3000_0004
-        //uint32_t buttons = USER_readWord(0x1); //doesn't work
+        //uint32_t buttons = USER_readWord(0x1); // doesn't work atm, WB reads are intermittent
         uint32_t buttons = reg_wb_buttons; 
 
         // write the button status to leds. 0x0 is 4 byte offset, so writes to 0x3000_0000
-        //USER_writeWord(buttons, 0x0); // doesn't work
+        //USER_writeWord(buttons, 0x0); // doesn't work atm, WB writes are intermittent
         reg_wb_leds = buttons;
 
         // also output the buttons on the management controlled GPIOS
