@@ -97,6 +97,14 @@ It should look like this:
 * after a delay, leds match the button value
 * 2 wishbone acks per loop (read buttons and write leds)
 
+## Formal verification
+
+Requires [Sby with SVA](https://www.yosyshq.com/products-and-services).
+
+    sby -f wb_buttons_leds.sby
+
+To prove wishbone compliance.
+
 ## Resources
 
 * Caravel sim infrastructure: https://caravel-sim-infrastructure.readthedocs.io/
