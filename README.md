@@ -111,3 +111,7 @@ To prove wishbone compliance.
 * Cocotb: https://www.cocotb.org/
 * Management Core: https://caravel-mgmt-soc-litex.readthedocs.io/en/latest/
 * Caravel: https://caravel-harness.readthedocs.io/en/latest/
+
+## License
+
+Copyright Matt Venn 2023 and licensed under the [GPL](LICENSE).
