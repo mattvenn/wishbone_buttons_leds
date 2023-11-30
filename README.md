@@ -1,6 +1,6 @@
 # Caravel Wishbone Demo
 
-Tested with MPW9 Caravel.
+Tested with MPW9 [Caravel](https://github.com/efabless/caravel_user_project).
 
 ## Overview
 
