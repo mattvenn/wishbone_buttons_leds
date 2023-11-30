@@ -13,23 +13,24 @@
 // limitations under the License.
 
 #include <firmware_apis.h>
+
+// wishbone addresses for leds and buttons
 #define reg_wb_leds      (*(volatile uint32_t*)0x30000000)
 #define reg_wb_buttons   (*(volatile uint32_t*)0x30000004)
 
 void delay(const int d)
 {
-
     /* Configure timer for a single-shot countdown */
-	reg_timer0_config = 0;
-	reg_timer0_data = d;
+    reg_timer0_config = 0;
+    reg_timer0_data = d;
     reg_timer0_config = 1;
 
     // Loop, waiting for value to reach zero
-   reg_timer0_update = 1;  // latch current value
-   while (reg_timer0_value > 0) {
-           reg_timer0_update = 1;
-   }
-
+    reg_timer0_update = 1;  // latch current value
+    while (reg_timer0_value > 0) 
+    {
+        reg_timer0_update = 1;
+    }
 }
 
 void main(){
@@ -39,28 +40,21 @@ void main(){
     enableHkSpi(0); // disable housekeeping spi
     
     int pin = 0;
-    /*
-    .buttons (io_in [15:08]),
-    .leds    (io_out[23:16]),
-    .oeb     (io_oeb[23:16])
-    */
-    // buttons
+    // buttons on 15:08
     for(pin = 8 ;pin < 16; pin ++)
        GPIOs_configure(pin,GPIO_MODE_USER_STD_INPUT_PULLDOWN);
 
-    // leds
+    // leds on 23:16
     for(pin = 16; pin < 24; pin ++)
        GPIOs_configure(pin,GPIO_MODE_USER_STD_OUT_MONITORED);
 
-    // send button status to management controlled gpio
+    // mirror button status to management controlled GPIO
     for(pin = 24; pin < 32; pin ++)
        GPIOs_configure(pin,GPIO_MODE_MGMT_STD_OUTPUT);
     
     GPIOs_loadConfigs(); // load the configuration 
     User_enableIF(); // turn on wishbone interface
-    delay(1000);
     ManagmentGpio_write(1); // configuration finished 
-    delay(1000);
 
     // https://caravel-sim-infrastructure.readthedocs.io/en/latest/C_api.html#_CPPv414USER_writeWordji
     while(1)
