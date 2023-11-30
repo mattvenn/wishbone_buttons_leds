@@ -20,12 +20,24 @@ Wiring:
 
 ## Test setup
 
-The C firmware sets up the GPIO, enables wishbone and then in a loop:
+### C firmware
+
+The C [firmware](wishbone_test/wishbone_test.c) sets up the GPIO, enables wishbone and then in a loop:
 
 * reads the buttons via wishbone
 * writes that value to the leds via wishbone
 * mirrors that value to the GPIO
 * toggles the management GPIO to sync with the cocotb testbench
+
+### Cocotb testbench
+
+The [testbench](wishbone_test/wishbone_test.py) waits for GPIO configuration to complete, and then:
+
+* increments the value sent to buttons
+* waits for sync by monitoring the management GPIO
+* reads the LED output driven by the user project
+* reads the GPIO output driven by C firmware
+* asserts the LED, GPIO and button value are all the same
 
 ## Install instructions
 
