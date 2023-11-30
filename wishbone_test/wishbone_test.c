@@ -21,7 +21,8 @@ void delay(const int d)
     }
 }
 
-void main(){
+void main()
+{
     // Enable managment gpio as output to use as indicator for finishing configuration  
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
