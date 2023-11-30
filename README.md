@@ -6,7 +6,7 @@ Tested with MPW9 Caravel.
 
 Caravel has a lot of moving parts and can be confusing. Here's the way things are wired up.
 
-![setup](docs/wishbone_caravel.drawio.png)
+![setup](docs/wishbone_caravel.drawio.png | width=600)
 
 * The cocotb test is [wishbone_test/wishbone_test.py](wishbone_test/wishbone_test.py)
 * The C firmware is [wishbone_test/wishbone_test.c](wishbone_test/wishbone_test.c)
