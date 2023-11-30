@@ -64,7 +64,7 @@ Instantiate the module inside `user_project_wrapper.v`:
         .oeb     (io_oeb[23:08])
     );
 
-Include the RTL in the verilog/includes/includes.rtl.caravel_user_project file:
+Include the RTL in the `verilog/includes/includes.rtl.caravel_user_project` file:
 
     -v $(USER_PROJECT_VERILOG)/rtl/wishbone_buttons_leds/wb_buttons_leds.v
 
@@ -91,6 +91,11 @@ Check the trace:
 It should look like this:
 
 ![trace](docs/trace.png)
+
+* gpio is going high and briefly low on each loop
+* buttons are incrementing - driven by cocotb
+* after a delay, leds match the button value
+* 2 wishbone acks per loop (read buttons and write leds)
 
 ## Resources
 
